@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption/Decryption Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Encryption/Decryption Tool</h1>
+        <div class="card">
+            <h2>Encrypt Data</h2>
+            <form id="encryptForm">
+                <textarea name="message" placeholder="Enter your message here"></textarea>
+                <select name="encryption_type">
+                    <option value="AES">AES</option>
+                </select>
+                <button type="submit">Encrypt</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Decrypt Data</h2>
+            <form id="decryptForm">
+                <input type="text" name="ciphertext" placeholder="Ciphertext (Hex)">
+                <input type="text" name="key" placeholder="Key (Hex)">
+                <input type="text" name="nonce" placeholder="Nonce (Hex)">
+                <select name="decryption_type">
+                    <option value="AES">AES</option>
+                </select>
+                <button type="submit">Decrypt</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('encryptForm').onsubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/encrypt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(formData.entries()))
+            });
+            document.body.innerHTML = await response.text();
+        };
+
+        document.getElementById('decryptForm').onsubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/decrypt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(formData.entries()))
+            });
+            document.body.innerHTML = await response.text();
+        };
+    </script>
+</body>
+</html>

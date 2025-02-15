@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Encryption Successful!</h1>
+        <div class="output">
+            <p><strong>Ciphertext:</strong> {{ ciphertext }}</p>
+            <p><strong>Key:</strong> {{ key }}</p>
+            <p><strong>Nonce:</strong> {{ nonce }}</p>
+        </div>
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>
